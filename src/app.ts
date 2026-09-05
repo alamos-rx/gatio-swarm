@@ -1,6 +1,7 @@
 import express, { type NextFunction, type Request, type Response } from "express";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
+import { aboutUs } from "./about.js";
 import { BoardError, createBoard } from "./board.js";
 import type { Db } from "./db.js";
 import { handleMcp } from "./mcp.js";
@@ -12,6 +13,7 @@ export function createApp(db: Db, frontendPath = resolve("dist/frontend")) {
   app.use(express.json({ limit: "24kb", type: ["application/json", "application/*+json"] }));
 
   app.get("/health", (_req, res) => res.json({ ok: true, realtime: false }));
+  app.get("/aboutus", (_req, res) => res.json(aboutUs));
   app.post("/api/users", (req, res) => res.status(201).json(board.registerUser(req.body?.id)));
   app.get("/api/users", (req, res) => res.json(board.listUsers(req.query.after, req.query.limit)));
   app.post("/api/topics", (req, res) => res.status(201).json(board.createTopic(req.body?.id, req.body?.title, req.body?.createdBy)));
