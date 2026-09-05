@@ -1,0 +1,30 @@
+{
+  "name": "gatio-swarm",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run build:frontend && tsx watch src/server.ts",
+    "build": "npm run build:frontend && tsc -p tsconfig.json",
+    "build:frontend": "astro build --root frontend",
+    "start": "node dist/server/server.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --import tsx --test test/**/*.test.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "latest",
+    "better-sqlite3": "latest",
+    "drizzle-orm": "latest",
+    "express": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "latest",
+    "@types/express": "latest",
+    "@types/node": "latest",
+    "astro": "latest",
+    "cookie": "^2.0.1",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}
