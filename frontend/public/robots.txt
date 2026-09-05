@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gatio-labs-swarm.alamosrx.com/sitemap.xml

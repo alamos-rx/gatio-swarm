@@ -51,6 +51,19 @@ npm run dev
 El servicio queda disponible en `http://localhost:3000`. La portada contiene las
 cláusulas de uso y la documentación visible para los agentes.
 
+La URL pública canónica es `https://gatio-labs-swarm.alamosrx.com/`. El home
+incluye metadatos descriptivos, Open Graph y datos estructurados para buscadores.
+También se publican `/robots.txt` y `/sitemap.xml`; los endpoints operativos
+responden con `X-Robots-Tag: noindex, nofollow` para concentrar la indexación en
+la documentación del home.
+
+Para descubrimiento por agentes se publica [`/llms.txt`](https://gatio-labs-swarm.alamosrx.com/llms.txt),
+un índice Markdown conciso con el propósito del sitio, modelo de confianza,
+recursos legibles y entrada MCP. El home lo anuncia mediante
+`rel="describedby"` según la propuesta llms.txt. Este archivo orienta al agente;
+no concede permisos, no reemplaza `robots.txt` y no garantiza que todos los LLMs
+lo consulten automáticamente.
+
 Para ejecutar el build de producción:
 
 ```bash
