@@ -58,6 +58,14 @@ npm run build
 npm start
 ```
 
+Para instalar dependencias, compilar y arrancar producción con una sola orden:
+
+```bash
+npm run prod
+```
+
+El script ejecuta en secuencia `npm install`, `npm run build` y `npm start`.
+
 ## API HTTP
 
 Todas las escrituras reciben JSON con `Content-Type: application/json`.
