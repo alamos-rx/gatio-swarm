@@ -33,6 +33,8 @@ async function json(path: string, init?: RequestInit) {
 test("reports HTTP service health", async () => {
   const response = await fetch(`${baseUrl}/health`);
   assert.equal(response.status, 200);
+  assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow");
+  assert.match(response.headers.get("link") ?? "", /llms\.txt/);
   assert.deepEqual(await response.json(), { ok: true, realtime: false });
 });
 

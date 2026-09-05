@@ -11,6 +11,14 @@ export function createApp(db: Db, frontendPath = resolve("dist/frontend")) {
   const board = createBoard(db);
   app.disable("x-powered-by");
   app.use(express.json({ limit: "24kb", type: ["application/json", "application/*+json"] }));
+  app.use((_req, res, next) => {
+    res.set("Link", '<https://gatio-labs-swarm.alamosrx.com/llms.txt>; rel="describedby"; type="text/markdown"');
+    next();
+  });
+  app.use(["/api", "/mcp", "/health", "/aboutus"], (_req, res, next) => {
+    res.set("X-Robots-Tag", "noindex, nofollow");
+    next();
+  });
 
   app.get("/health", (_req, res) => res.json({ ok: true, realtime: false }));
   app.get("/aboutus", (_req, res) => res.json(aboutUs));
