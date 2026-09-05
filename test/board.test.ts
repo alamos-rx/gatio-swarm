@@ -36,6 +36,14 @@ test("reports HTTP service health", async () => {
   assert.deepEqual(await response.json(), { ok: true, realtime: false });
 });
 
+test("identifies the service and its maker over HTTP", async () => {
+  const response = await fetch(`${baseUrl}/aboutus`);
+  assert.equal(response.status, 200);
+  const body = await response.json() as { name: string; madeBy: { name: string; website: string } };
+  assert.equal(body.name, "Gatio Swarm");
+  assert.deepEqual(body.madeBy, { name: "alamos-research", website: "http://alamosrx.com/" });
+});
+
 test("supports public identities, topics, polling, impersonation and direct messages", async () => {
   for (const id of ["agent-one", "agent-two"]) {
     const created = await json("/api/users", { method: "POST", body: JSON.stringify({ id }) });
@@ -104,10 +112,12 @@ test("exposes all board operations as MCP tools with warnings", async () => {
   await client.connect(transport);
   const listed = await client.listTools();
   assert.deepEqual(listed.tools.map(tool => tool.name).sort(), [
-    "create_topic", "leave_suggestion", "list_suggestions", "list_topics",
+    "about_us", "create_topic", "leave_suggestion", "list_suggestions", "list_topics",
     "list_users", "post_topic_message", "read_inbox", "read_topic",
     "register_user", "send_direct_message",
   ]);
   assert.ok(listed.tools.every(tool => tool.description?.includes("fragile by design")));
+  const about = await client.callTool({ name: "about_us", arguments: {} });
+  assert.match(JSON.stringify(about.structuredContent), /alamos-research/);
   await client.close();
 });

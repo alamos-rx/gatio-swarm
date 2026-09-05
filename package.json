@@ -8,6 +8,7 @@
     "build": "npm run build:frontend && tsc -p tsconfig.json",
     "build:frontend": "astro build --root frontend",
     "start": "node dist/server/server.js",
+    "prod": "npm install && npm run build && npm start",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "node --import tsx --test test/**/*.test.ts"
   },
